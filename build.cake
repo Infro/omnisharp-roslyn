@@ -153,7 +153,7 @@ Task("PrepareTestAssets:CommonTestAssets")
     .DoesForEach(buildPlan.TestAssets, (project) =>
     {
         Information("Restoring and building: {0}...", project);
-
+        Information("Build using ToolPath {0}", env.DotNetCommand);
         var folder = CombinePaths(env.Folders.TestAssets, "test-projects", project);
 
         try {
@@ -295,7 +295,7 @@ Task("Test")
     .IsDependentOn("PrepareTestAssets")
     .Does(() =>
 {
-        var testTargetFramework = useDotNetTest ? "net7.0" : "net472";
+        var testTargetFramework = useDotNetTest ? "net8.0" : "net472";
         var testProjects = string.IsNullOrEmpty(testProjectArgument) ? buildPlan.TestProjects : testProjectArgument.Split(',');
         foreach (var testProject in testProjects)
         {
@@ -499,7 +499,7 @@ Task("PublishMonoBuilds")
     }
 });
 
-Task("PublishNet6Builds")
+Task("PublishNet8Builds")
     .IsDependentOn("Setup")
     .Does(() =>
 {
@@ -509,51 +509,51 @@ Task("PublishNet6Builds")
         {
             if (Platform.Current.IsWindows)
             {
-                PublishBuild(project, env, buildPlan, configuration, "win7-x86", "net6.0");
-                PublishBuild(project, env, buildPlan, configuration, "win7-x64", "net6.0");
-                PublishBuild(project, env, buildPlan, configuration, "win10-arm64", "net6.0");
+                PublishBuild(project, env, buildPlan, configuration, "win7-x86", "net8.0");
+                PublishBuild(project, env, buildPlan, configuration, "win7-x64", "net8.0");
+                PublishBuild(project, env, buildPlan, configuration, "win10-arm64", "net8.0");
             }
             else if (Platform.Current.IsMacOS)
             {
-                PublishBuild(project, env, buildPlan, configuration, "osx-x64", "net6.0");
-                PublishBuild(project, env, buildPlan, configuration, "osx-arm64", "net6.0");
+                PublishBuild(project, env, buildPlan, configuration, "osx-x64", "net8.0");
+                PublishBuild(project, env, buildPlan, configuration, "osx-arm64", "net8.0");
             }
             else
             {
-                PublishBuild(project, env, buildPlan, configuration, "linux-x64", "net6.0");
-                PublishBuild(project, env, buildPlan, configuration, "linux-arm64", "net6.0");
-                PublishBuild(project, env, buildPlan, configuration, "linux-musl-x64", "net6.0");
-                PublishBuild(project, env, buildPlan, configuration, "linux-musl-arm64", "net6.0");
+                PublishBuild(project, env, buildPlan, configuration, "linux-x64", "net8.0");
+                PublishBuild(project, env, buildPlan, configuration, "linux-arm64", "net8.0");
+                PublishBuild(project, env, buildPlan, configuration, "linux-musl-x64", "net8.0");
+                PublishBuild(project, env, buildPlan, configuration, "linux-musl-arm64", "net8.0");
             }
         }
         else if (Platform.Current.IsWindows)
         {
             if (Platform.Current.IsX86)
             {
-                PublishBuild(project, env, buildPlan, configuration, "win7-x86", "net6.0");
+                PublishBuild(project, env, buildPlan, configuration, "win7-x86", "net8.0");
             }
             else if (Platform.Current.IsX64)
             {
-                PublishBuild(project, env, buildPlan, configuration, "win7-x64", "net6.0");
+                PublishBuild(project, env, buildPlan, configuration, "win7-x64", "net8.0");
             }
             else
             {
-                PublishBuild(project, env, buildPlan, configuration, "win10-arm64", "net6.0");
+                PublishBuild(project, env, buildPlan, configuration, "win10-arm64", "net8.0");
             }
         }
         else
         {
             if (Platform.Current.IsMacOS)
             {
-                PublishBuild(project, env, buildPlan, configuration, "osx-x64", "net6.0");
-                PublishBuild(project, env, buildPlan, configuration, "osx-arm64", "net6.0");
+                PublishBuild(project, env, buildPlan, configuration, "osx-x64", "net8.0");
+                PublishBuild(project, env, buildPlan, configuration, "osx-arm64", "net8.0");
             }
             else
             {
-                PublishBuild(project, env, buildPlan, configuration, "linux-x64", "net6.0");
-                PublishBuild(project, env, buildPlan, configuration, "linux-arm64", "net6.0");
-                PublishBuild(project, env, buildPlan, configuration, "linux-musl-x64", "net6.0");
-                PublishBuild(project, env, buildPlan, configuration, "linux-musl-arm64", "net6.0");
+                PublishBuild(project, env, buildPlan, configuration, "linux-x64", "net8.0");
+                PublishBuild(project, env, buildPlan, configuration, "linux-arm64", "net8.0");
+                PublishBuild(project, env, buildPlan, configuration, "linux-musl-x64", "net8.0");
+                PublishBuild(project, env, buildPlan, configuration, "linux-musl-arm64", "net8.0");
             }
         }
 
@@ -662,7 +662,7 @@ Task("PublishNuGet")
 Task("Publish")
     .IsDependentOn("Build")
     .IsDependentOn("PublishMonoBuilds")
-    .IsDependentOn("PublishNet6Builds")
+    .IsDependentOn("PublishNet8Builds")
     .IsDependentOn("PublishWindowsBuilds")
     .IsDependentOn("PublishNuGet");
 

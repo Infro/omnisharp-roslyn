@@ -6,7 +6,7 @@
         <MicrosoftTestPackageVersion>17.3.0</MicrosoftTestPackageVersion>
         <MSBuildPackageVersion>17.3.1</MSBuildPackageVersion>
         <NuGetPackageVersion>6.4.0-preview.1.53</NuGetPackageVersion>
-        <RoslynPackageVersion>4.4.0-3.22429.3</RoslynPackageVersion>
+        <RoslynPackageVersion>4.5.0-dev</RoslynPackageVersion>
         <XunitPackageVersion>2.4.1</XunitPackageVersion>
     </PropertyGroup>
 

@@ -115,6 +115,9 @@ namespace OmniSharp.MSBuild.Discovery
         {
             var builder = ImmutableArray.CreateBuilder<MSBuildInstance>();
 
+            // Console.WriteLine($"Process Id {System.Diagnostics.Process.GetCurrentProcess().Id}");
+            // Console.WriteLine("Waiting for Debugger and key press");
+            // Console.ReadKey();
             foreach (var provider in _providers)
             {
                 foreach (var instance in provider.GetInstances())
